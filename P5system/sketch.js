@@ -26,14 +26,26 @@ function draw() {
 }
 
 function testLines() {
+  const rando = random(1);
+  let numShapes;
+  if (rando > 0.5) {
+    numShapes = SIDES;  
+  } else {
+    numShapes = SIDES * 2;
+  }
+  
+  const rando2 = floor(random(0, PALETTE.length));
+  const strokeColor = PALETTE[rando2]
+  console.log(rando2);
+  
   noFill(0);
   push(); // push pop only applies this transform/rotate to what's inside. then goes back
     translate(width/2, height/2); // this moves the x,y 0,0 to the centre(or whereever you set it)
     stroke(PALETTE[0])
     ellipse(0, 0, CRYSTAL_SIZE, CRYSTAL_SIZE);
-    stroke(PALETTE[1])
-    const angle = 360 / SIDES
-    for (let i = 0; i < SIDES; i++) {
+    stroke(strokeColor)
+    const angle = 360 / numShapes
+    for (let i = 0; i < numShapes; i++) {
       line(0, 0, 0, CRYSTAL_SIZE/2)
       rotate( angle )
     }
