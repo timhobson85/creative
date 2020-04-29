@@ -23,7 +23,32 @@ function setup() {
 
 function draw() {
   // testLines();
-  outlineShape();
+  // outlineShape();
+  simpleLines();
+}
+
+function simpleLines() {
+  const stepsOut = 8;
+  const numSteps = randomSelectTwo() ? stepsOut : int(stepsOut * 1.25);
+  const step = ( CRYSTAL_SIZE / 2 ) / numSteps;
+  const start = floor(random( 0, numSteps ));
+  const stop = floor(random(start, numSteps + 1));
+  
+  let numShapes = randomSelectTwo() ? SIDES : SIDES * 2;
+  const strokeColor = getRandomFromPalette();
+  const weight = randomSelectTwo() ? 1 : 3;
+
+  const angle = 360 / numShapes;
+  noFill(0);
+  stroke(strokeColor);
+  strokeWeight(weight);
+  push(); // push pop only applies this transform/rotate to what's inside. then goes back
+    translate(width/2, height/2); // this moves the x,y 0,0 to the centre(or whereever you set it)
+    for (let i = 0; i < numShapes; i++) {
+      line(start * step, 0, stop * step, 0);
+      rotate( angle );
+    }
+  pop();
 }
 
 
@@ -65,19 +90,4 @@ function testLines() {
       rotate( angle );
     }
   pop();
-}
-
-function randomSelectTwo() {
-  const rando = random(1);
-  let numShapes;
-  if (rando > 0.5) {
-    return true;  
-  } else {
-    return false;
-  }
-}
-
-function getRandomFromPalette() {
-  const rando2 = floor(random(0, PALETTE.length));
-  return PALETTE[rando2]
 }
