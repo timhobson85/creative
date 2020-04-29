@@ -7,7 +7,7 @@
 
 const CRYSTAL_SIZE = 500;
 const SIDES = 6;
-let PALETTE = []
+let PALETTE = [];
 
 
 function setup() {
@@ -26,28 +26,36 @@ function draw() {
 }
 
 function testLines() {
-  const rando = random(1);
-  let numShapes;
-  if (rando > 0.5) {
-    numShapes = SIDES;  
-  } else {
-    numShapes = SIDES * 2;
-  }
-  
-  const rando2 = floor(random(0, PALETTE.length));
-  const strokeColor = PALETTE[rando2]
-  console.log(rando2);
+  let numShapes = randomSelectTwo() ? SIDES : SIDES * 2;
+
+  const strokeColor = getRandomFromPalette();
+
   
   noFill(0);
   push(); // push pop only applies this transform/rotate to what's inside. then goes back
     translate(width/2, height/2); // this moves the x,y 0,0 to the centre(or whereever you set it)
-    stroke(PALETTE[0])
+    stroke(PALETTE[0]); 
     ellipse(0, 0, CRYSTAL_SIZE, CRYSTAL_SIZE);
-    stroke(strokeColor)
-    const angle = 360 / numShapes
+    stroke(strokeColor);
+    const angle = 360 / numShapes;
     for (let i = 0; i < numShapes; i++) {
-      line(0, 0, 0, CRYSTAL_SIZE/2)
-      rotate( angle )
+      line(0, 0, 0, CRYSTAL_SIZE/2);
+      rotate( angle );
     }
   pop();
+}
+
+function randomSelectTwo() {
+  const rando = random(1);
+  let numShapes;
+  if (rando > 0.5) {
+    return true;  
+  } else {
+    return false;
+  }
+}
+
+function getRandomFromPalette() {
+  const rando2 = floor(random(0, PALETTE.length));
+  return PALETTE[rando2]
 }
