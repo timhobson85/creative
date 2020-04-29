@@ -23,9 +23,26 @@ function setup() {
 
 function draw() {
   // testLines();
-  outlineShape();
-  simpleLines();
-  circles();
+  // outlineShape();
+  // simpleLines();
+  // circles();
+
+  let picker = random(1);
+  if (picker > 0.3) {
+    outlineShape();
+  }
+  
+  picker = random(1);
+  if (picker > 0.3) {
+    simpleLines();
+  }
+  
+  picker = random(1);
+  if (picker > 0.3) {
+    circles();
+  }
+
+
 }
 
 function circles() {
@@ -35,6 +52,7 @@ function circles() {
   const position = (CRYSTAL_SIZE / 2 ) - ( shapeSize / 2 );
   const strokeColor = getRandomFromPalette();
 
+  noFill(0);
   stroke(strokeColor);
   strokeWeight(1);
   push();
