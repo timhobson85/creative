@@ -22,25 +22,28 @@ function setup() {
 }
 
 function draw() {
+  const layer = new Circles();
+  layer.render();
+  
   // testLines();
   // outlineShape();
   // simpleLines();
   // circles();
 
-  let picker = random(1);
-  if (picker > 0.3) {
-    outlineShape();
-  }
+  // let picker = random(1);
+  // if (picker > 0.3) {
+  //   outlineShape();
+  // }
   
-  picker = random(1);
-  if (picker > 0.3) {
-    simpleLines();
-  }
+  // picker = random(1);
+  // if (picker > 0.3) {
+  //   simpleLines();
+  // }
   
-  picker = random(1);
-  if (picker > 0.3) {
-    circles();
-  }
+  // picker = random(1);
+  // if (picker > 0.3) {
+  //   circles();
+  // }
 
 
 }
