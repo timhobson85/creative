@@ -18,32 +18,18 @@ function setup() {
 }
 
 function draw() {
-  // let picker = random(1);
-  // if (picker > 0.3) {
-  //   layers.push(new OutlineShape());
-  // };
-  
-  // picker = random(1);
-  // if (picker > 0.3) {
-  //   layers.push(new SimpleLines());
-  // };
-  
-  // picker = random(1);
-  // if (picker > 0.3) {
-  //   layers.push(new Circles());
-  // };
 
-  // layers.forEach(layer => {
-  //   layer.render();
-  // });
+  layerConstructors.forEach(lcon => {
+    let picker = random(1);
+    if (picker > lcon.weight) {
+      layers.push(lcon.init());
+    };
+  });
 
-  // const dottedLines = new DottedLines();
-  // dottedLines.render();
-  // const centeredShape = new CenteredShape();
-  // centeredShape.render();
-  // const ringOfShapes = new RingOfShapes();
-  // ringOfShapes.render();
-  const steppedHexagon = new SteppedHexagon();
-  steppedHexagon.render();
+  console.log(layers)
+
+  layers.forEach(layer => {
+    layer.render();
+  });
 
 };

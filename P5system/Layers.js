@@ -165,7 +165,7 @@ class RingOfShapes extends Layer {
   }; // ends render
 }; // end RingOfShapes
 
-class SteppedHexagon extends Layer {
+class SteppedHexagons extends Layer {
   constructor(){
     super();
     this.numSteps = randomSelectTwo() ? this.stepsOut : this.stepsOut * 1.25;
@@ -185,7 +185,7 @@ class SteppedHexagon extends Layer {
       };
     pop();
   }; // ends render
-}; // end SteppedHexagon
+}; // end SteppedHexagons
 
 // class CenteredShape extends Layer {
 //   constructor(){
