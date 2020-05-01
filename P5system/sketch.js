@@ -1,22 +1,46 @@
 
-const CRYSTAL_SIZE = 500;
+const CRYSTAL_SIZE = 150;
 const SIDES = 6;
+
+// layout
+const MARGIN = CRYSTAL_SIZE / 2;
+const COLUMNS = 3;
+const ROWS = 4;
+const PADDING = CRYSTAL_SIZE * 0.2;
+const GRIDBOX = CRYSTAL_SIZE + PADDING;
+const START = (CRYSTAL_SIZE / 2) + MARGIN;
+
 let PALETTE = [];
+let ALL_CRYSTALS = [];
 
 function setup() {
-  createCanvas(550, 550, SVG); // height, width, and export type
+  const totalX = START + GRIDBOX * COLUMNS;
+  const totalY = START + GRIDBOX * ROWS;
+  createCanvas(totalX, totalY, SVG); // height, width, and export type
   PALETTE = [
-    color(255, 52, 154), //pink
-    color(4, 0, 152) //blue
-  ]
+    color(255, 153, 255), //pink
+    color(204, 255, 255) //blue
+  ];
   noLoop(); // only one render
   angleMode(DEGREES); // makes the correct rotate value
   rectMode(CENTER); // sets co-ordinates from centre, not from top left.
-}
+};
 
 function draw() {
-
-  // go to a point on teh screen and draw a pixel , continue to do this until we run out of room
-  const oneCrystal = new Crystal(width/2, height/2);
-  oneCrystal.render();  
+  // go to a point on teh screen and draw a crystal , continue to do this until we run out of room
+  background(32,32,32)
+  for (let x = 0; x < COLUMNS; x++) {
+    for (let y = 0; y < ROWS; y++) {
+      const posX = START + (x * GRIDBOX);
+      const posY = START + (y * GRIDBOX);
+      ALL_CRYSTALS.push(new Crystal( posX, posY));
+    };
+  };
+  
+  ALL_CRYSTALS.forEach(crystal =>{
+    crystal.render();
+  })
+  
 };
+
+

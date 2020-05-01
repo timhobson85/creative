@@ -68,6 +68,7 @@ class OutlineShape extends Layer {
 
   render(){
     stroke(this.layerColor);
+    noFill();
     strokeWeight(this.weight);
     push();
       // translate( width/2, height/2 );
