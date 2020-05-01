@@ -17,8 +17,23 @@
       margin: 0;
       padding: 0;
     }
+
+    button {
+      position: absolute;
+    }
+
+    #save{
+      position: absolute;
+      top:25px;
+    }
+
+    #reload{
+
+    }
   </style>
-  <div class='x'></div>
-  <div class='y'></div>
+  <div>
+    <button id="save" onClick="saveSVG()">saveSVG</button>
+    <button id="reload" onClick="location.reload()">reload</button>
+  </div>
 </body>
 </html>
