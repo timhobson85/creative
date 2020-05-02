@@ -1,4 +1,4 @@
-function hexagon(posX, posY, radius) {
+const hexagon = (posX, posY, radius) => {
   const rotAngle = 360 / 6;
   beginShape();
   for (let i = 0; i < 6; i++) {
@@ -8,13 +8,13 @@ function hexagon(posX, posY, radius) {
   endShape(CLOSE);
 };
 
-function pointOnCircle(posX, posY, radius, angle) {
+const pointOnCircle = (posX, posY, radius, angle) => {
   const x = posX + radius * cos(angle);
   const y = posY + radius * sin(angle);
   return createVector(x, y);
 };
 
-function randomSelectTwo() {
+const randomSelectTwo = () => {
   const rando = random(1);
   let numShapes;
   if (rando > 0.5) {
@@ -24,30 +24,35 @@ function randomSelectTwo() {
   };
 };
 
-function getRandomFromPalette() {
+const getRandomFromPalette = () => {
   const rando2 = floor(random(0, PALETTE.length));
   return PALETTE[rando2]
 };
 
-function testLines() {
-  strokeWeight(3);
-  let numShapes = randomSelectTwo() ? SIDES : SIDES * 2;
-
+const testLines = (state) => {
+  state.numShapes = randomSelectTwo() ? SIDES : SIDES * 2;
+  state.angle = 360 / state.numShapes
   const strokeColor = getRandomFromPalette();
   
-  
-  noFill(0);
-  push(); // push pop only applies this transform/rotate to what's inside. then goes back
-  translate(width/2, height/2); // this moves the x,y 0,0 to the centre(or whereever you set it)
-  stroke(PALETTE[0]); 
-    ellipse(0, 0, CRYSTAL_SIZE, CRYSTAL_SIZE);
-    stroke(strokeColor);
-    const angle = 360 / numShapes;
-    for (let i = 0; i < numShapes; i++) {
-      line(0, 0, 0, CRYSTAL_SIZE/2);
-      rotate( angle );
-    };
-    pop();
+  return({
+    name: 'testLines',
+    state,
+    render: () => {
+      stroke(strokeColor);
+      noFill(0);
+      push(); 
+        if (state.lines) {
+          for (let i = 0; i < 360 - 0.1; i+= state.angle) {
+            line(0,0,0,state.CRYSTAL_SIZE/2)
+            rotate(state.angle);
+          }
+        }
+        if (state.circle) {
+          ellipse(0,0, state.CRYSTAL_SIZE, state.CRYSTAL_SIZE)
+        }
+      pop();
+    }
+  })
 };
 
 function myTriangle(center, radius, direction) {
@@ -69,42 +74,91 @@ function myTriangle(center, radius, direction) {
 const layerConstructors = [
   {
     name: 'OutlineShape',
-    init: () => new OutlineShape(),
+    init: (props) => outlineShape({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'CenteredShape',
-    init: () => new CenteredShape(),
+    init: (props) => centeredShape({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'Circles',
-    init: () => new Circles(),
+    init: (props) => circles({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'SimpleLines',
-    init: () => new SimpleLines(),
+    init: (props) => simpleLines({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'DottedLines',
-    init: () => new DottedLines(),
+    init: (props) => dottedLines({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'RingOfShapes',
-    init: () => new RingOfShapes(),
+    init: (props) => ringOfShapes({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'SteppedHexagons',
-    init: () => new SteppedHexagons(),
-    weight: 1
+    init: (props) => steppedHexagons({
+      ...props,
+      ...setState(state)
+    }),
+    weight: 0.7
   },
   {
     name: 'TestLines',
-    init: () => new TestLines(),
+    init: (props) => testLines({
+      lines:false,
+      circle:false,
+      ...props,
+      ...setState(state)
+    }),
     weight: 1
   }
 ];
+
+const makeCrystal = (pos) =>{
+  const layers = layerConstructors.map(lcon => {
+    let picker = random(1);
+    const draw = picker > lcon.weight
+      return lcon.init({
+        pos,
+        draw
+      });
+  });
+  return layers;
+};
+
+const drawCrystal = (crystal) =>{
+  crystal.forEach(layer => {
+    if (layer.state.draw) {
+      push();
+      translate(layer.state.pos.x, layer.state.pos.y);
+      layer.render();
+      pop();
+    }
+  })
+}

@@ -33,12 +33,14 @@ function draw() {
     for (let y = 0; y < ROWS; y++) {
       const posX = START + (x * GRIDBOX);
       const posY = START + (y * GRIDBOX);
-      ALL_CRYSTALS.push(new Crystal( posX, posY));
+      const crystal = makeCrystal({x: posX,y: posY});
+      console.log(crystal)
+      ALL_CRYSTALS.push(crystal);
     };
   };
   
   ALL_CRYSTALS.forEach(crystal =>{
-    crystal.render();
+    drawCrystal(crystal)
   })
   
 };
