@@ -153,12 +153,16 @@ const makeCrystal = (pos) =>{
 };
 
 const drawCrystal = (crystal) =>{
-  crystal.forEach(layer => {
-    if (layer.state.draw) {
-      push();
-      translate(layer.state.pos.x, layer.state.pos.y);
-      layer.render();
-      pop();
-    }
+  crystal.forEach((layer, i) => {
+    setTimeout( () => {
+      console.log('i', i)
+        if (layer.state.draw) {
+          push();
+          translate(layer.state.pos.x, layer.state.pos.y);
+          console.log('hello')
+          layer.render();
+          pop();
+        }
+    }, i * 100)
   })
 }
