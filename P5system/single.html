@@ -38,15 +38,22 @@
       transform: translate(-50%, -50%);
       z-index: 10;
     }
-    #save{
+    #save {
       position: absolute;
-      top:25px;
+      top: 88%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+    .click:hover {
+      cursor: pointer;
     }
   </style>
   <h1>generate a crystal</h1>
   <div>
     <!-- <button id="save" onClick="saveSVG()">saveSVG</button> -->
   </div>
-  <p id="reload" onClick="draw()">reload</button>
+  <p id="reload" onClick="draw()" class="click">reload</button>
+  <p id="save" onClick="saveSVG()" class="click">save</button>
 </body>
 </html>
