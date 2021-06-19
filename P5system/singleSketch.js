@@ -12,6 +12,9 @@ const START = (CRYSTAL_SIZE / 2) + MARGIN;
 let PALETTE = [];
 let ALL_CRYSTALS = [];
 
+
+// test - partheitc.
+
 function setup() {
   const totalX = START + GRIDBOX * COLUMNS;
   const totalY = START + GRIDBOX * ROWS;
